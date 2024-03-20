@@ -47,6 +47,27 @@ def lever_order_traversal(root_node):
             if root.value.right_child is not None:
                 custom_queue.enqueue(root.value.right_child)
 
+def search_bt(root_node, value):
+    if not root_node:
+        return "The tree is empty"
+    else:
+        custom_queue = Queue()
+        custom_queue.enqueue(root_node)
+        while not(custom_queue.is_empty()):
+            root = custom_queue.dequeue()
+            if root.value.data == value:
+                return "Success"
+            
+            if root.value.left_child is not None:
+                custom_queue.enqueue(root.value.left_child)
+
+            if root.value.right_child is not None:
+                custom_queue.enqueue(root.value.right_child)
+
+        return "Not found"
+            
+            
+
 preorder_transversal(new_t)
 print()
 inorder_traversal(new_t)
@@ -54,3 +75,5 @@ print()
 postorder_traversal(new_t)
 print()
 lever_order_traversal(new_t)
+print()
+print(search_bt(new_t, "Cold"))

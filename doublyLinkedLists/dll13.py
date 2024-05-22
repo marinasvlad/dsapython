@@ -136,6 +136,39 @@ class DoublyLinkedList:
             self.head = next_node
             popped_node.next = None
             self.length -= 1
+    
+    def pop(self):
+        if self.length == 0:
+            return None
+        elif self.length == 1:
+            self.head = None
+            self.tail = None
+            self.length = 0
+        else:
+            popped_node = self.tail
+            prev_node = popped_node.prev
+            prev_node.next = None
+            self.tail = prev_node
+            popped_node.prev = None
+            self.length -= 1
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            print('Index out of order')
+            return None
+        else:
+            if self.length == 0:
+                return None
+            elif self.length == 1:
+                self.head = None
+                self.tail = None
+                self.length = 0
+            else:
+                if index == 0:
+                    self.pop_first()
+                elif index == self.length:
+                    self.pop()
+
 
 
 dll = DoublyLinkedList()
@@ -160,4 +193,6 @@ print(dll)
 dll.insert(205,2)
 print(dll)
 dll.pop_first()
+print(dll)
+dll.pop()
 print(dll)

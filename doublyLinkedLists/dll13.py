@@ -84,7 +84,7 @@ class DoublyLinkedList:
             if self.length == 0:
                 return None
             else:
-                if(index < self.length // 2):
+                if index < self.length // 2 :
                     temp = self.head
                     for _ in range(index):
                         temp = temp.next
@@ -166,9 +166,15 @@ class DoublyLinkedList:
             else:
                 if index == 0:
                     self.pop_first()
-                elif index == self.length:
+                elif index == self.length - 1:
                     self.pop()
-
+                else:
+                    removed_node = self.get(index)
+                    removed_node.prev.next = removed_node.next
+                    removed_node.next.prev = removed_node.prev
+                    removed_node.next = None
+                    removed_node.prev = None 
+                    self.length -= 1
 
 
 dll = DoublyLinkedList()
@@ -195,4 +201,6 @@ print(dll)
 dll.pop_first()
 print(dll)
 dll.pop()
+print(dll)
+dll.remove(4)
 print(dll)

@@ -1,5 +1,6 @@
 def factorial(n):
-    print(n)
+    if n in [0, 1]:
+        return 1
     return n * factorial(n - 1)
 
-factorial(2) 
+print(factorial(500)) 

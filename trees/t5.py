@@ -40,6 +40,49 @@ def levelorder_traversal(node):
         if node.value.rightChild is not None:
             customQueue.enqueue(node.value.rightChild)
 
+def search_node(node, data):
+    if not node:
+        return
+    
+    customQueue = Queue()
+    customQueue.enqueue(node)
+
+    while not customQueue.isEmpty():
+        temp = customQueue.dequeue()
+
+        if temp.value.data == data:
+            return True
+        
+        if temp.value.leftChild is not None:
+            customQueue.enqueue(temp.value.leftChild)
+        
+        if temp.value.rightChild is not None:
+            customQueue.enqueue(temp.value.rightChild)
+    
+    return False
+
+def insert_node(node, value):
+    new_node = TreeNode(value)
+    if node is None:
+        node = new_node
+        return new_node
+    
+    customQueue = Queue()
+    customQueue.enqueue(node)
+    while not customQueue.isEmpty():
+        current_node = customQueue.dequeue()
+
+        if current_node.value.leftChild is None:
+            current_node.value.leftChild = new_node
+            return new_node
+        
+        if current_node.value.rightChild is None:
+            current_node.value.rightChild = new_node
+            return new_node
+        
+        customQueue.enqueue(current_node.value.leftChild)
+        customQueue.enqueue(current_node.value.rightChild)
+
 bt = TreeNode('Drinks')
 cold = TreeNode('Cold')
 hot = TreeNode('Hot')
@@ -60,3 +103,9 @@ print()
 postorder_traversal(bt)
 print()
 levelorder_traversal(bt)
+print()
+print(search_node(bt, 'Tea'))
+print()
+insert_node(bt, 'Orange Juice')
+levelorder_traversal(bt)
+

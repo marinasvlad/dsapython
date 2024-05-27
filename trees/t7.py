@@ -142,6 +142,10 @@ def deleteNode(rootNode, node):
     
     return "Failed to delete node"
 
+def deleteBT(rootNode):
+    rootNode.data = None
+    rootNode.leftChild = None
+    rootNode.rightChild = None
 
 bt = TreeNode('Drinks')
 cold = TreeNode('Cold')
@@ -169,4 +173,6 @@ print()
 insert_node(bt, 'Orange Juice')
 levelorder_traversal(bt)
 deleteNode(bt, TreeNode('Tea'))
+levelorder_traversal(bt)
+deleteBT(bt)
 levelorder_traversal(bt)

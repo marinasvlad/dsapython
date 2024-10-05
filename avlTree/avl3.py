@@ -109,10 +109,57 @@ def insertNode(rootNode, nodeValue):
     
     return rootNode
 
+def getMinValueNode(rootNode):
+    if rootNode is None or rootNode.leftChild is None:
+        return rootNode
+    
+    return getMinValueNode(rootNode.leftChild)
 
+def deleteNode(rootNode, nodeValue):
+    if not rootNode:
+        return rootNode
+    elif nodeValue < rootNode.data:
+        rootNode.leftChild = deleteNode(rootNode.leftChild, nodeValue)
+    elif nodeValue > rootNode.data:
+        rootNode.rightChild = deleteNode(rootNode.rightChild, nodeValue)
+    else:
+        if rootNode.leftChild is None:
+            temp = rootNode.rightChild
+            rootNode = None
+            return temp
+        elif rootNode.rightChild is None:
+            temp = rootNode.leftChild
+            rootNode = None
+            return temp
+        temp = getMinValueNode(rootNode.rightChild)
+        rootNode.data = temp.data
+        rootNode.rightChild = deleteNode(rootNode.rightChild, temp.data)
+    
+    balance = 1 + max(getHeight(rootNode.leftChild), getHeight(rootNode.rightChild))
+    if balance > 1 and getBalance(rootNode.leftChild) >= 1:
+        return rightRotate(rootNode)
+    
+    if balance < -1 and getBalance(rootNode.rightChild) <= 0:
+        return leftRotate(rootNode)
+    
+    if balance > 1 and getBalance(rootNode.leftChild) < 0:
+        rootNode.leftChild = leftRotate(rootNode.leftChild)
+        return rightRotate(rootNode)
+    
+    if balance < -1 and balance(rootNode.rightChild) > 0:
+        rootNode.rightChild = rightRotate(rootNode.rightChild)
+        return leftRotate(rootNode)
+    
+    return rootNode
+
+def deleteAVL(rootNode):
+    rootNode.data = None 
+    rootNode.leftChild = None
+    rootNode.rightChild = None
+    return "The AVL tree has been deleted"
 newAVL = AVLNode(5)
 newAVL = insertNode(newAVL, 10) 
 newAVL = insertNode(newAVL, 15) 
 newAVL = insertNode(newAVL, 20)
-
+deleteAVL(newAVL)
 leverOrderTraversal(newAVL)
